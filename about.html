@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Maweza Business Enterprise</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
     <style>
         * {
             margin: 0;
@@ -23,6 +24,32 @@
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
         }
 
+        /* Water droplet animation background */
+        .water-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .droplet {
+            position: absolute;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-30px) translateX(20px) scale(1.1); }
+            50% { transform: translateY(-60px) translateX(-20px) scale(0.9); }
+            75% { transform: translateY(-30px) translateX(10px) scale(1.05); }
+        }
+
         header {
             position: fixed;
             width: 100%;
@@ -31,6 +58,12 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
         }
 
         nav {
@@ -49,6 +82,27 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: '💧';
+            position: absolute;
+            right: -25px;
+            top: -2px;
+            font-size: 1rem;
+            animation: drip 2s infinite;
+        }
+
+        @keyframes drip {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(5px); opacity: 0.7; }
         }
 
         .nav-links {
@@ -63,6 +117,7 @@
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-links a:hover {
@@ -72,12 +127,13 @@
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
             width: 0;
             height: 2px;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             transition: width 0.3s;
+            transform: translateX(-50%);
         }
 
         .nav-links a:hover::after {
@@ -106,6 +162,30 @@
             bottom: 0;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             opacity: 0.95;
+            animation: gradient-shift 15s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .about-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f8fafc' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .about-hero-content {
@@ -153,6 +233,22 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            border-radius: 2px;
         }
 
         .about-content {
@@ -164,21 +260,40 @@
 
         .about-card {
             background: white;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+            transition: all 0.8s ease;
+            transform: scale(0);
+        }
+
+        .about-card:hover::before {
+            transform: scale(1);
         }
 
         .about-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .about-card h3 {
             color: #1e3a8a;
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            position: relative;
         }
 
         .founder-section {
@@ -191,7 +306,7 @@
 
         .founder-image {
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
-            height: 300px;
+            height: 350px;
             border-radius: 15px;
             display: flex;
             align-items: center;
@@ -199,6 +314,20 @@
             color: white;
             font-size: 1.2rem;
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .founder-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
 
         .founder-info h3 {
@@ -223,16 +352,34 @@
 
         .capacity-item {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             background: white;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .capacity-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #10b981);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .capacity-item:hover::before {
+            transform: scaleX(1);
         }
 
         .capacity-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .capacity-item h3 {
@@ -256,30 +403,167 @@
 
         .value-item {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             background: white;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
         .value-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .value-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            display: inline-block;
+            transition: all 0.5s ease;
+        }
+
+        .value-item:hover .value-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .value-item h3 {
             color: #1e3a8a;
             margin-bottom: 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, #1e3a8a, #3b82f6, #10b981);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 1.5rem;
+            position: relative;
+            width: 50%;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            transform: rotate(45deg);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            margin: 3rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .contact-section {
@@ -288,6 +572,19 @@
             border-radius: 30px;
             padding: 4rem 3rem;
             margin: 3rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 50%);
+            animation: rotate 20s linear infinite;
         }
 
         .contact-grid {
@@ -295,6 +592,8 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-item {
@@ -302,6 +601,13 @@
             padding: 1.5rem;
             border-radius: 15px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
         }
 
         .contact-item h3 {
@@ -314,6 +620,36 @@
             color: white;
             text-align: center;
             padding: 2rem 5%;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #10b981, #1e3a8a);
+            background-size: 200% 100%;
+            animation: gradient-flow 3s linear infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
@@ -333,18 +669,38 @@
             .founder-section {
                 grid-template-columns: 1fr;
             }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-content::after {
+                left: -10px !important;
+                right: auto !important;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <div class="water-bg" id="waterBg"></div>
+
+    <header id="header">
         <nav>
             <div class="logo">MAWEZA</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html" style="color: #3b82f6;">About</a></li>
                 <li><a href="services.html">Services</a></li>
-                <!--<li><a href="customers.html">Customers</a></li>-->
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -360,17 +716,51 @@
     <section id="our-story">
         <h2 class="section-title">Our Story</h2>
         <div class="about-content">
-            <div class="about-card">
+            <div class="about-card reveal">
                 <h3>Our Beginning</h3>
                 <p>Maweza Business Enterprise was founded in 2018 by Mrs. Kelebogile Merriam Moalahi in Kuruman, Northern Cape. Starting as a small, home-based operation, we have grown into a respected provider of purified water and ice products in the region.</p>
             </div>
-            <div class="about-card">
+            <div class="about-card reveal">
                 <h3>Our Growth</h3>
                 <p>From our humble beginnings operating from a garage, we have expanded our reach across multiple communities. Our reputation for quality and reliability has allowed us to build a strong customer base that continues to grow through word-of-mouth recommendations.</p>
             </div>
-            <div class="about-card">
+            <div class="about-card reveal">
                 <h3>Our Future</h3>
                 <p>We are currently seeking funding to acquire a dedicated building for our operations. This expansion will allow us to consolidate our equipment, streamline processes, and enhance our service delivery to better serve our community.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline">
+        <h2 class="section-title">Our Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="timeline-year">2018</span>
+                    <h3>Foundation</h3>
+                    <p>Maweza Business Enterprise was established by Mrs. Kelebogile Merriam Moalahi, starting operations from a garage with a vision to provide quality water and ice to the community.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="timeline-year">2019</span>
+                    <h3>Expansion</h3>
+                    <p>We expanded our customer base across Kuruman and surrounding areas, establishing partnerships with local retailers and businesses.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="timeline-year">2020-2022</span>
+                    <h3>Growth & Recognition</h3>
+                    <p>Despite challenges, we continued to grow, earning a reputation for reliability and quality. We expanded our production capacity and service area.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="timeline-year">2023-Present</span>
+                    <h3>Future Vision</h3>
+                    <p>We're working towards acquiring a dedicated facility to enhance our operations and better serve our growing customer base across the Northern Cape.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -378,14 +768,14 @@
     <section id="founder">
         <h2 class="section-title">Our Founder</h2>
         <div class="founder-section">
-            <div class="founder-image">
+            <div class="founder-image reveal">
                 Founder Image
             </div>
             <div class="founder-info">
-                <h3>Mrs. Kelebogile Merriam Moalahi</h3>
-                <p class="role">Founder & Owner</p>
-                <p>Mrs. Moalahi established Maweza Business Enterprise with a vision to provide high-quality purified water and ice to her community. As a 100% black-owned small business, she has built the company through dedication, personalized customer service, and a commitment to excellence.</p>
-                <p>Under her leadership, Maweza has become known for its reliable products and community-focused approach, serving customers across Kuruman and surrounding areas.</p>
+                <h3 class="reveal">Mrs. Kelebogile Merriam Moalahi</h3>
+                <p class="role reveal">Founder & Owner</p>
+                <p class="reveal">Mrs. Moalahi established Maweza Business Enterprise with a vision to provide high-quality purified water and ice to her community. As a 100% black-owned small business, she has built the company through dedication, personalized customer service, and a commitment to excellence.</p>
+                <p class="reveal">Under her leadership, Maweza has become known for its reliable products and community-focused approach, serving customers across Kuruman and surrounding areas.</p>
             </div>
         </div>
     </section>
@@ -393,17 +783,17 @@
     <section id="capacity">
         <h2 class="section-title">Our Capacity</h2>
         <div class="capacity-grid">
-            <div class="capacity-item">
+            <div class="capacity-item reveal">
                 <h3>Water Filtration</h3>
                 <p class="spec">PuitTech 6000L Filter</p>
                 <p>Our advanced filtration system is capable of purifying 6000 liters of water per day, ensuring a consistent supply of clean, safe drinking water for our customers.</p>
             </div>
-            <div class="capacity-item">
+            <div class="capacity-item reveal">
                 <h3>Ice Production</h3>
                 <p class="spec">120 kg Daily Capacity</p>
                 <p>We operate two ice-making machines with a combined daily production capacity of 120 kg, meeting diverse needs from individual consumers to commercial establishments.</p>
             </div>
-            <div class="capacity-item">
+            <div class="capacity-item reveal">
                 <h3>Storage & Display</h3>
                 <p class="spec">5 Display Freezers</p>
                 <p>Our five display freezers ensure proper storage and attractive presentation of our products, maintaining quality while showcasing our offerings to customers.</p>
@@ -411,25 +801,47 @@
         </div>
     </section>
 
+    <div class="stats-section">
+        <h2 class="section-title" style="color: white;">Our Impact</h2>
+        <div class="stats-grid">
+            <div class="stat-item reveal">
+                <span class="stat-number" id="customerCount">0</span>
+                <span class="stat-label">Happy Customers</span>
+            </div>
+            <div class="stat-item reveal">
+                <span class="stat-number" id="waterCount">0</span>
+                <span class="stat-label">Liters Purified Daily</span>
+            </div>
+            <div class="stat-item reveal">
+                <span class="stat-number" id="iceCount">0</span>
+                <span class="stat-label">Kg Ice Produced Daily</span>
+            </div>
+            <div class="stat-item reveal">
+                <span class="stat-number" id="yearCount">0</span>
+                <span class="stat-label">Years of Service</span>
+            </div>
+        </div>
+    </div>
+
     <section id="values">
         <h2 class="section-title">Our Values</h2>
         <div class="values-grid">
-            <div class="value-item">
+            <div class="value-item reveal">
                 <div class="value-icon">💧</div>
                 <h3>Quality</h3>
                 <p>We are committed to delivering the highest quality purified water and ice products, ensuring safety and satisfaction for all our customers.</p>
             </div>
-            <div class="value-item">
+            <div class="value-item reveal">
                 <div class="value-icon">🤝</div>
                 <h3>Community</h3>
                 <p>As a local business, we are deeply connected to our community and strive to contribute positively to its growth and well-being.</p>
             </div>
-            <div class="value-item">
+            <div class="value-item reveal">
                 <div class="value-icon">⚡</div>
                 <h3>Reliability</h3>
                 <p>Our customers can depend on us for consistent product quality and timely service, building trust through every interaction.</p>
             </div>
-            <div class="value-item">
+            <div class="value-item reveal">
                 <div class="value-icon">🌱</div>
                 <h3>Sustainability</h3>
                 <p>We operate with a focus on sustainable practices, ensuring our business contributes positively to both our community and environment.</p>
@@ -440,15 +852,15 @@
     <section id="business-structure">
         <h2 class="section-title">Business Structure</h2>
         <div class="about-content">
-            <div class="about-card">
+            <div class="about-card reveal">
                 <h3>Ownership</h3>
                 <p>Maweza Business Enterprise is a 100% black-owned small business registered as a Pty Ltd company. We take pride in our status as a locally-owned enterprise contributing to economic development in our community.</p>
             </div>
-            <div class="about-card">
+            <div class="about-card reveal">
                 <h3>Operations</h3>
                 <p>Currently operating from a garage facility, we have maximized our efficiency within this space. Our operations include water purification, bottling, ice production, and distribution to our growing network of retail partners.</p>
             </div>
-            <div class="about-card">
+            <div class="about-card reveal">
                 <h3>Market Reach</h3>
                 <p>We serve a broad client base spanning from Mothibistad, Magojaneng Mapoteng, Seven Miles, and extending to Batharos. Our reputation for quality continues to expand our reach throughout the Northern Cape region.</p>
             </div>
@@ -458,15 +870,15 @@
     <div class="contact-section" id="contact">
         <h2 class="section-title" style="color: white;">Get In Touch</h2>
         <div class="contact-grid">
-            <div class="contact-item">
+            <div class="contact-item reveal">
                 <h3>Email</h3>
                 <p>kelebogilemerriam632@gmail.com</p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item reveal">
                 <h3>Phone</h3>
                 <p>071 523 8786<br>063 187 0021</p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item reveal">
                 <h3>Location</h3>
                 <p>Kuruman, Northern Cape<br>South Africa</p>
             </div>
@@ -478,6 +890,22 @@
     </footer>
 
     <script>
+        // Create animated water droplets
+        const waterBg = document.getElementById('waterBg');
+        for (let i = 0; i < 15; i++) {
+            const droplet = document.createElement('div');
+            droplet.className = 'droplet';
+            const size = Math.random() * 200 + 100;
+            droplet.style.width = size + 'px';
+            droplet.style.height = size + 'px';
+            droplet.style.left = Math.random() * 100 + '%';
+            droplet.style.top = Math.random() * 100 + '%';
+            droplet.style.animationDelay = Math.random() * 10 + 's';
+            droplet.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            waterBg.appendChild(droplet);
+        }
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -491,26 +919,92 @@
             });
         });
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
                 }
             });
-        }, observerOptions);
+        };
 
-        document.querySelectorAll('.about-card, .capacity-item, .value-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Make logo clickable to scroll to top
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
+
+        // Add staggered animation delay to grid items
+        document.querySelectorAll('.about-content .about-card').forEach((card, index) => {
+            card.style.transitionDelay = (index * 0.1) + 's';
+        });
+
+        document.querySelectorAll('.capacity-grid .capacity-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.15) + 's';
+        });
+
+        document.querySelectorAll('.values-grid .value-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.1) + 's';
+        });
+
+        document.querySelectorAll('.timeline-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.2) + 's';
+        });
+
+        // Animated counter for stats
+        function animateCounter(elementId, finalValue, duration = 2000) {
+            const element = document.getElementById(elementId);
+            const startValue = 0;
+            const increment = finalValue / (duration / 16); // 60fps
+            
+            let currentValue = startValue;
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    clearInterval(timer);
+                    currentValue = finalValue;
+                }
+                element.textContent = Math.floor(currentValue);
+            }, 16);
+        }
+
+        // Start counters when stats section is in view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter('customerCount', 1000);
+                    animateCounter('waterCount', 6000);
+                    animateCounter('iceCount', 120);
+                    animateCounter('yearCount', 7);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
     </script>
 </body>
 </html>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Maweza Business Enterprise</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
     <style>
         * {
             margin: 0;
@@ -23,6 +24,32 @@
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
         }
 
+        /* Water droplet animation background */
+        .water-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .droplet {
+            position: absolute;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-30px) translateX(20px) scale(1.1); }
+            50% { transform: translateY(-60px) translateX(-20px) scale(0.9); }
+            75% { transform: translateY(-30px) translateX(10px) scale(1.05); }
+        }
+
         header {
             position: fixed;
             width: 100%;
@@ -31,6 +58,12 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
         }
 
         nav {
@@ -49,6 +82,27 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: '💧';
+            position: absolute;
+            right: -25px;
+            top: -2px;
+            font-size: 1rem;
+            animation: drip 2s infinite;
+        }
+
+        @keyframes drip {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(5px); opacity: 0.7; }
         }
 
         .nav-links {
@@ -63,6 +117,7 @@
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-links a:hover {
@@ -72,12 +127,13 @@
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
             width: 0;
             height: 2px;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             transition: width 0.3s;
+            transform: translateX(-50%);
         }
 
         .nav-links a:hover::after {
@@ -106,6 +162,30 @@
             bottom: 0;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             opacity: 0.95;
+            animation: gradient-shift 15s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .contact-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f8fafc' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .contact-hero-content {
@@ -153,6 +233,22 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            border-radius: 2px;
         }
 
         .contact-container {
@@ -167,12 +263,37 @@
             padding: 3rem;
             border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+            transition: all 0.8s ease;
+            transform: scale(0);
+        }
+
+        .contact-info:hover::before {
+            transform: scale(1);
+        }
+
+        .contact-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .contact-info h3 {
             color: #1e3a8a;
             font-size: 1.8rem;
             margin-bottom: 2rem;
+            position: relative;
         }
 
         .contact-details {
@@ -185,7 +306,25 @@
             margin-bottom: 1.5rem;
             padding: 1rem;
             border-radius: 10px;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #10b981);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .contact-item:hover::before {
+            transform: scaleX(1);
         }
 
         .contact-item:hover {
@@ -201,6 +340,11 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             min-width: 30px;
+            transition: all 0.5s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .contact-text h4 {
@@ -226,6 +370,12 @@
             justify-content: space-between;
             padding: 0.5rem 0;
             border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .hours-list li:hover {
+            background: #f8fafc;
+            padding-left: 10px;
         }
 
         .hours-list li:last-child {
@@ -237,16 +387,42 @@
             padding: 3rem;
             border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+            transition: all 0.8s ease;
+            transform: scale(0);
+        }
+
+        .contact-form:hover::before {
+            transform: scale(1);
+        }
+
+        .contact-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .contact-form h3 {
             color: #1e3a8a;
             font-size: 1.8rem;
             margin-bottom: 2rem;
+            position: relative;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         .form-group label {
@@ -254,6 +430,7 @@
             margin-bottom: 0.5rem;
             color: #1e3a8a;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .form-group input,
@@ -266,6 +443,7 @@
             font-size: 1rem;
             transition: all 0.3s;
             font-family: inherit;
+            background: #f8fafc;
         }
 
         .form-group input:focus,
@@ -274,6 +452,7 @@
             outline: none;
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: white;
         }
 
         .form-group textarea {
@@ -290,8 +469,28 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            border-radius: 50%;
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .submit-btn:hover {
@@ -314,6 +513,20 @@
             font-size: 1.2rem;
             font-weight: 600;
             margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
 
         .service-areas {
@@ -333,21 +546,45 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #10b981);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .area-item:hover::before {
+            transform: scaleX(1);
         }
 
         .area-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .area-icon {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+
+        .area-item:hover .area-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .area-item h4 {
@@ -362,11 +599,31 @@
             padding: 4rem 3rem;
             margin: 3rem 5%;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .urgent-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .urgent-section h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .urgent-section p {
@@ -375,6 +632,8 @@
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 1;
         }
 
         .urgent-contact {
@@ -382,6 +641,8 @@
             justify-content: center;
             gap: 2rem;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
         }
 
         .urgent-item {
@@ -390,6 +651,13 @@
             border-radius: 15px;
             backdrop-filter: blur(10px);
             min-width: 200px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .urgent-item:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-5px);
         }
 
         .urgent-item h3 {
@@ -402,6 +670,36 @@
             color: white;
             text-align: center;
             padding: 2rem 5%;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #10b981, #1e3a8a);
+            background-size: 200% 100%;
+            animation: gradient-flow 3s linear infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
@@ -430,14 +728,15 @@
     </style>
 </head>
 <body>
-    <header>
+    <div class="water-bg" id="waterBg"></div>
+
+    <header id="header">
         <nav>
             <div class="logo">MAWEZA</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
-                <!--<li><a href="customers.html">Customers</a></li>-->
                 <li><a href="contact.html" style="color: #3b82f6;">Contact</a></li>
             </ul>
         </nav>
@@ -453,31 +752,31 @@
     <section id="contact-main">
         <h2 class="section-title">Contact Maweza Business Enterprise</h2>
         <div class="contact-container">
-            <div class="contact-info">
+            <div class="contact-info reveal">
                 <h3>Our Contact Information</h3>
                 <div class="contact-details">
-                    <div class="contact-item">
+                    <div class="contact-item reveal">
                         <div class="contact-icon">📧</div>
                         <div class="contact-text">
                             <h4>Email</h4>
                             <p>kelebogilemerriam632@gmail.com</p>
                         </div>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item reveal">
                         <div class="contact-icon">📞</div>
                         <div class="contact-text">
                             <h4>Phone</h4>
                             <p>071 523 8786<br>063 187 0021</p>
                         </div>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item reveal">
                         <div class="contact-icon">📍</div>
                         <div class="contact-text">
                             <h4>Address</h4>
                             <p>Kuruman, Northern Cape<br>South Africa</p>
                         </div>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item reveal">
                         <div class="contact-icon">👤</div>
                         <div class="contact-text">
                             <h4>Contact Person</h4>
@@ -489,15 +788,15 @@
                 <div class="business-hours">
                     <h4>Business Hours</h4>
                     <ul class="hours-list">
-                        <li>
+                        <li class="reveal">
                             <span>Monday - Friday</span>
                             <span>8:00 AM - 5:00 PM</span>
                         </li>
-                        <li>
+                        <li class="reveal">
                             <span>Saturday</span>
                             <span>9:00 AM - 2:00 PM</span>
                         </li>
-                        <li>
+                        <li class="reveal">
                             <span>Sunday</span>
                             <span>Closed</span>
                         </li>
@@ -505,7 +804,7 @@
                 </div>
             </div>
 
-            <div class="contact-form">
+            <div class="contact-form reveal">
                 <h3>Send Us a Message</h3>
                 <form id="contactForm">
                     <div class="form-group">
@@ -543,7 +842,7 @@
 
     <section class="map-section">
         <h2 class="section-title">Our Location</h2>
-        <div class="map-container">
+        <div class="map-container reveal">
             Map of Kuruman, Northern Cape<br>Maweza Business Enterprise Location
         </div>
     </section>
@@ -551,27 +850,27 @@
     <section class="service-areas">
         <h2 class="section-title">Areas We Serve</h2>
         <div class="areas-grid">
-            <div class="area-item">
+            <div class="area-item reveal">
                 <div class="area-icon">🏘️</div>
                 <h4>Kuruman</h4>
                 <p>Our home base and primary service area</p>
             </div>
-            <div class="area-item">
+            <div class="area-item reveal">
                 <div class="area-icon">🏠</div>
                 <h4>Mothibistad</h4>
                 <p>Regular deliveries and service</p>
             </div>
-            <div class="area-item">
+            <div class="area-item reveal">
                 <div class="area-icon">🛣️</div>
                 <h4>Magojaneng Mapoteng</h4>
                 <p>Expanding our reach</p>
             </div>
-            <div class="area-item">
+            <div class="area-item reveal">
                 <div class="area-icon">📍</div>
                 <h4>Seven Miles</h4>
                 <p>Growing customer base</p>
             </div>
-            <div class="area-item">
+            <div class="area-item reveal">
                 <div class="area-icon">🚚</div>
                 <h4>Batharos</h4>
                 <p>Extended service area</p>
@@ -580,18 +879,18 @@
     </section>
 
     <div class="urgent-section">
-        <h2>Need Immediate Assistance?</h2>
-        <p>For urgent orders or immediate service requirements, contact us directly through these channels:</p>
+        <h2 class="reveal">Need Immediate Assistance?</h2>
+        <p class="reveal">For urgent orders or immediate service requirements, contact us directly through these channels:</p>
         <div class="urgent-contact">
-            <div class="urgent-item">
+            <div class="urgent-item reveal">
                 <h3>Call Now</h3>
                 <p>071 523 8786</p>
             </div>
-            <div class="urgent-item">
+            <div class="urgent-item reveal">
                 <h3>WhatsApp</h3>
                 <p>063 187 0021</p>
             </div>
-            <div class="urgent-item">
+            <div class="urgent-item reveal">
                 <h3>Email</h3>
                 <p>kelebogilemerriam632@gmail.com</p>
             </div>
@@ -603,6 +902,22 @@
     </footer>
 
     <script>
+        // Create animated water droplets
+        const waterBg = document.getElementById('waterBg');
+        for (let i = 0; i < 15; i++) {
+            const droplet = document.createElement('div');
+            droplet.className = 'droplet';
+            const size = Math.random() * 200 + 100;
+            droplet.style.width = size + 'px';
+            droplet.style.height = size + 'px';
+            droplet.style.left = Math.random() * 100 + '%';
+            droplet.style.top = Math.random() * 100 + '%';
+            droplet.style.animationDelay = Math.random() * 10 + 's';
+            droplet.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            waterBg.appendChild(droplet);
+        }
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -616,6 +931,41 @@
             });
         });
 
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Make logo clickable to scroll to top
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Form submission handling
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -626,33 +976,42 @@
             const email = formData.get('email');
             const subject = formData.get('subject');
             
-            // In a real application, you would send this data to a server
-            // For now, we'll just show a success message
-            alert(`Thank you ${name}! Your message about "${subject}" has been received. We'll contact you at ${email} soon.`);
+            // Show loading state
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
             
-            // Reset the form
-            this.reset();
+            // Simulate API call
+            setTimeout(() => {
+                // In a real application, you would send this data to a server
+                // For now, we'll just show a success message
+                alert(`Thank you ${name}! Your message about "${subject}" has been received. We'll contact you at ${email} soon.`);
+                
+                // Reset the form
+                this.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
         });
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Add staggered animation delay to grid items
+        document.querySelectorAll('.contact-details .contact-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.1) + 's';
+        });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+        document.querySelectorAll('.hours-list li').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.1) + 's';
+        });
 
-        document.querySelectorAll('.contact-item, .area-item, .urgent-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
+        document.querySelectorAll('.areas-grid .area-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.1) + 's';
+        });
+
+        document.querySelectorAll('.urgent-contact .urgent-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.1) + 's';
         });
     </script>
 </body>

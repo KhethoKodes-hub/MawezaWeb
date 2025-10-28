@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services - Maweza Business Enterprise</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
     <style>
         * {
             margin: 0;
@@ -23,6 +24,32 @@
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
         }
 
+        /* Water droplet animation background */
+        .water-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .droplet {
+            position: absolute;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-30px) translateX(20px) scale(1.1); }
+            50% { transform: translateY(-60px) translateX(-20px) scale(0.9); }
+            75% { transform: translateY(-30px) translateX(10px) scale(1.05); }
+        }
+
         header {
             position: fixed;
             width: 100%;
@@ -31,6 +58,12 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
         }
 
         nav {
@@ -49,6 +82,27 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: '💧';
+            position: absolute;
+            right: -25px;
+            top: -2px;
+            font-size: 1rem;
+            animation: drip 2s infinite;
+        }
+
+        @keyframes drip {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(5px); opacity: 0.7; }
         }
 
         .nav-links {
@@ -63,6 +117,7 @@
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-links a:hover {
@@ -72,12 +127,13 @@
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
             width: 0;
             height: 2px;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             transition: width 0.3s;
+            transform: translateX(-50%);
         }
 
         .nav-links a:hover::after {
@@ -106,6 +162,30 @@
             bottom: 0;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             opacity: 0.95;
+            animation: gradient-shift 15s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .services-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f8fafc' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .services-hero-content {
@@ -153,6 +233,22 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            border-radius: 2px;
         }
 
         .services-grid {
@@ -167,7 +263,7 @@
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             text-align: center;
@@ -176,31 +272,22 @@
         .service-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 0;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent 70%);
+            transition: all 0.8s ease;
+            transform: scale(0);
         }
 
         .service-card:hover::before {
-            opacity: 1;
+            transform: scale(1);
         }
 
         .service-card:hover {
             transform: translateY(-10px) scale(1.02);
-            color: white;
-        }
-
-        .service-card:hover h3,
-        .service-card:hover p,
-        .service-card:hover .service-icon {
-            color: white;
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .service-card h3 {
@@ -208,33 +295,42 @@
             margin-bottom: 1rem;
             color: #1e3a8a;
             transition: color 0.3s;
+            position: relative;
         }
 
         .service-card p {
             margin-bottom: 1.5rem;
             transition: color 0.3s;
+            position: relative;
         }
 
         .service-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            transition: all 0.3s;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .service-features {
             list-style: none;
             text-align: left;
             margin-top: 1.5rem;
+            position: relative;
         }
 
         .service-features li {
             margin-bottom: 0.5rem;
             padding-left: 1.5rem;
             position: relative;
+            transition: color 0.3s;
         }
 
         .service-features li::before {
@@ -243,10 +339,7 @@
             left: 0;
             color: #10b981;
             font-weight: bold;
-        }
-
-        .service-card:hover .service-features li::before {
-            color: white;
+            transition: color 0.3s;
         }
 
         .capacity-section {
@@ -255,6 +348,24 @@
             border-radius: 30px;
             padding: 4rem 3rem;
             margin: 3rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .capacity-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .capacity-grid {
@@ -262,6 +373,8 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .capacity-item {
@@ -270,7 +383,8 @@
             border-radius: 15px;
             backdrop-filter: blur(10px);
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .capacity-item:hover {
@@ -308,6 +422,20 @@
             color: white;
             font-size: 1.2rem;
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .distribution-map::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
 
         .distribution-info h3 {
@@ -329,25 +457,49 @@
 
         .benefit-item {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             background: white;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #10b981);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .benefit-item:hover::before {
+            transform: scaleX(1);
         }
 
         .benefit-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
         }
 
         .benefit-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: all 0.5s ease;
+            display: inline-block;
+        }
+
+        .benefit-item:hover .benefit-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .benefit-item h3 {
@@ -361,6 +513,19 @@
             border-radius: 30px;
             padding: 4rem 3rem;
             margin: 3rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 50%);
+            animation: rotate 20s linear infinite;
         }
 
         .contact-grid {
@@ -368,6 +533,8 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-item {
@@ -375,6 +542,13 @@
             padding: 1.5rem;
             border-radius: 15px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
         }
 
         .contact-item h3 {
@@ -390,9 +564,29 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            border-radius: 50%;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
@@ -405,6 +599,36 @@
             color: white;
             text-align: center;
             padding: 2rem 5%;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #10b981, #1e3a8a);
+            background-size: 200% 100%;
+            animation: gradient-flow 3s linear infinite;
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 768px) {
@@ -428,14 +652,15 @@
     </style>
 </head>
 <body>
-    <header>
+    <div class="water-bg" id="waterBg"></div>
+
+    <header id="header">
         <nav>
             <div class="logo">MAWEZA</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html" style="color: #3b82f6;">Services</a></li>
-                <!--<li><a href="customers.html">Customers</a></li>-->
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -451,7 +676,7 @@
     <section id="main-services">
         <h2 class="section-title">What We Offer</h2>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="service-icon">💧</div>
                 <h3>Water Purification</h3>
                 <p>We purify and bottle water for public consumption, ensuring the highest quality standards and safe drinking water for our customers.</p>
@@ -462,7 +687,7 @@
                     <li>Safe for public consumption</li>
                 </ul>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="service-icon">🧊</div>
                 <h3>Ice Production</h3>
                 <p>We produce high-quality ice in various quantities to meet diverse needs, from individual consumers to commercial establishments.</p>
@@ -473,7 +698,7 @@
                     <li>Available in various sizes</li>
                 </ul>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="service-icon">🚚</div>
                 <h3>Product Distribution</h3>
                 <p>Our products are distributed through a growing network of retail partners across multiple communities in the Northern Cape.</p>
@@ -484,7 +709,7 @@
                     <li>Growing retail partnerships</li>
                 </ul>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal">
                 <div class="service-icon">⚡</div>
                 <h3>Custom Solutions</h3>
                 <p>We offer tailored solutions for businesses and organizations requiring specialized water purification or ice production services.</p>
@@ -501,17 +726,17 @@
     <div class="capacity-section">
         <h2 class="section-title" style="color: white;">Our Production Capacity</h2>
         <div class="capacity-grid">
-            <div class="capacity-item">
+            <div class="capacity-item reveal">
                 <h3>Water Filtration</h3>
                 <div class="spec">6,000L/Day</div>
                 <p>Our PuitTech filtration system can purify 6000 liters of water daily, ensuring a consistent supply for our customers.</p>
             </div>
-            <div class="capacity-item">
+            <div class="capacity-item reveal">
                 <h3>Ice Production</h3>
                 <div class="spec">120kg/Day</div>
                 <p>With two ice-making machines, we produce 80kg and 40kg daily respectively, totaling 120kg of high-quality ice.</p>
             </div>
-            <div class="capacity-item">
+            <div class="capacity-item reveal">
                 <h3>Storage Capacity</h3>
                 <div class="spec">5 Freezers</div>
                 <p>We maintain 5 display freezers for proper storage and attractive presentation of our products.</p>
@@ -522,15 +747,15 @@
     <section id="distribution">
         <h2 class="section-title">Our Distribution Network</h2>
         <div class="distribution-section">
-            <div class="distribution-map">
+            <div class="distribution-map reveal">
                 Distribution Map<br>Northern Cape Region
             </div>
             <div class="distribution-info">
-                <h3>Serving Communities Across the Region</h3>
-                <p>We proudly serve a broad client base spanning from Mothibistad, Magojaneng Mapoteng, Seven Miles, and extending to Batharos.</p>
-                <p>Our growing reputation extends even further through word-of-mouth recommendations from our satisfied customers.</p>
-                <p>What sets us apart from our competitors is our unique offering, a distinct quality that continues to draw attention and loyalty from our customers.</p>
-                <a href="customers.html" class="cta-button">View Our Customers</a>
+                <h3 class="reveal">Serving Communities Across the Region</h3>
+                <p class="reveal">We proudly serve a broad client base spanning from Mothibistad, Magojaneng Mapoteng, Seven Miles, and extending to Batharos.</p>
+                <p class="reveal">Our growing reputation extends even further through word-of-mouth recommendations from our satisfied customers.</p>
+                <p class="reveal">What sets us apart from our competitors is our unique offering, a distinct quality that continues to draw attention and loyalty from our customers.</p>
+                <a href="customers.html" class="cta-button reveal">View Our Customers</a>
             </div>
         </div>
     </section>
@@ -538,22 +763,22 @@
     <section id="benefits">
         <h2 class="section-title">Why Choose Maweza</h2>
         <div class="benefits-grid">
-            <div class="benefit-item">
+            <div class="benefit-item reveal">
                 <div class="benefit-icon">⭐</div>
                 <h3>Quality Assurance</h3>
                 <p>We maintain the highest standards in water purification and ice production, ensuring safe, clean products every time.</p>
             </div>
-            <div class="benefit-item">
+            <div class="benefit-item reveal">
                 <div class="benefit-icon">🤝</div>
                 <h3>Personalized Service</h3>
                 <p>We emphasize customer satisfaction and personalized attention, building strong relationships with our clients.</p>
             </div>
-            <div class="benefit-item">
+            <div class="benefit-item reveal">
                 <div class="benefit-icon">⚡</div>
                 <h3>Reliable Supply</h3>
                 <p>With our efficient production capacity, we ensure consistent availability of our products to meet customer demand.</p>
             </div>
-            <div class="benefit-item">
+            <div class="benefit-item reveal">
                 <div class="benefit-icon">🌱</div>
                 <h3>Community Focus</h3>
                 <p>As a local business, we are committed to serving our community and contributing to its growth and well-being.</p>
@@ -564,21 +789,21 @@
     <div class="contact-section" id="contact">
         <h2 class="section-title" style="color: white;">Ready to Partner With Us?</h2>
         <div class="contact-grid">
-            <div class="contact-item">
+            <div class="contact-item reveal">
                 <h3>Email</h3>
                 <p>kelebogilemerriam632@gmail.com</p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item reveal">
                 <h3>Phone</h3>
                 <p>071 523 8786<br>063 187 0021</p>
             </div>
-            <div class="contact-item">
+            <div class="contact-item reveal">
                 <h3>Location</h3>
                 <p>Kuruman, Northern Cape<br>South Africa</p>
             </div>
         </div>
         <div style="text-align: center; margin-top: 2rem;">
-            <a href="contact.html" class="cta-button">Contact Us Today</a>
+            <a href="contact.html" class="cta-button reveal">Contact Us Today</a>
         </div>
     </div>
 
@@ -587,6 +812,22 @@
     </footer>
 
     <script>
+        // Create animated water droplets
+        const waterBg = document.getElementById('waterBg');
+        for (let i = 0; i < 15; i++) {
+            const droplet = document.createElement('div');
+            droplet.className = 'droplet';
+            const size = Math.random() * 200 + 100;
+            droplet.style.width = size + 'px';
+            droplet.style.height = size + 'px';
+            droplet.style.left = Math.random() * 100 + '%';
+            droplet.style.top = Math.random() * 100 + '%';
+            droplet.style.animationDelay = Math.random() * 10 + 's';
+            droplet.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            waterBg.appendChild(droplet);
+        }
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -600,25 +841,56 @@
             });
         });
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
                 }
             });
-        }, observerOptions);
+        };
 
-        document.querySelectorAll('.service-card, .capacity-item, .benefit-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Make logo clickable to scroll to top
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Add staggered animation delay to grid items
+        document.querySelectorAll('.services-grid .service-card').forEach((card, index) => {
+            card.style.transitionDelay = (index * 0.1) + 's';
+        });
+
+        document.querySelectorAll('.capacity-grid .capacity-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.15) + 's';
+        });
+
+        document.querySelectorAll('.benefits-grid .benefit-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.1) + 's';
+        });
+
+        document.querySelectorAll('.contact-grid .contact-item').forEach((item, index) => {
+            item.style.transitionDelay = (index * 0.1) + 's';
         });
     </script>
 </body>
