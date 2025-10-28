@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Maweza Business Enterprise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background-color: #f8fafc;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .services-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            opacity: 0.95;
+        }
+
+        .services-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .services-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .services-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            color: white;
+        }
+
+        .service-card:hover h3,
+        .service-card:hover p,
+        .service-card:hover .service-icon {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e3a8a;
+            transition: color 0.3s;
+        }
+
+        .service-card p {
+            margin-bottom: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s;
+        }
+
+        .service-features {
+            list-style: none;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .service-features li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .service-card:hover .service-features li::before {
+            color: white;
+        }
+
+        .capacity-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            margin: 3rem 5%;
+        }
+
+        .capacity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .capacity-item {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .capacity-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .capacity-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .capacity-item .spec {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #10b981;
+        }
+
+        .distribution-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .distribution-map {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            height: 300px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .distribution-info h3 {
+            color: #1e3a8a;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .distribution-info p {
+            margin-bottom: 1.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .benefit-item h3 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            margin: 3rem 5%;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #1e3a8a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 2rem 5%;
+        }
+
+        @media (max-width: 768px) {
+            .services-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .distribution-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">MAWEZA</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" style="color: #3b82f6;">Services</a></li>
+                <!--<li><a href="customers.html">Customers</a></li>-->
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="services-hero gradient-bg">
+        <div class="services-hero-content">
+            <h1>Our Services</h1>
+            <p>Quality water purification and ice production solutions for homes and businesses</p>
+        </div>
+    </section>
+
+    <section id="main-services">
+        <h2 class="section-title">What We Offer</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">💧</div>
+                <h3>Water Purification</h3>
+                <p>We purify and bottle water for public consumption, ensuring the highest quality standards and safe drinking water for our customers.</p>
+                <ul class="service-features">
+                    <li>Advanced PuitTech 6000L filtration system</li>
+                    <li>High-quality packaging</li>
+                    <li>Regular quality testing</li>
+                    <li>Safe for public consumption</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🧊</div>
+                <h3>Ice Production</h3>
+                <p>We produce high-quality ice in various quantities to meet diverse needs, from individual consumers to commercial establishments.</p>
+                <ul class="service-features">
+                    <li>Two ice-making machines</li>
+                    <li>Total daily capacity of 120kg</li>
+                    <li>Consistent quality and purity</li>
+                    <li>Available in various sizes</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚚</div>
+                <h3>Product Distribution</h3>
+                <p>Our products are distributed through a growing network of retail partners across multiple communities in the Northern Cape.</p>
+                <ul class="service-features">
+                    <li>Wide distribution network</li>
+                    <li>Regular delivery schedules</li>
+                    <li>Reliable supply chain</li>
+                    <li>Growing retail partnerships</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Custom Solutions</h3>
+                <p>We offer tailored solutions for businesses and organizations requiring specialized water purification or ice production services.</p>
+                <ul class="service-features">
+                    <li>Bulk order arrangements</li>
+                    <li>Custom packaging options</li>
+                    <li>Specialized delivery requirements</li>
+                    <li>Contract-based services</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="capacity-section">
+        <h2 class="section-title" style="color: white;">Our Production Capacity</h2>
+        <div class="capacity-grid">
+            <div class="capacity-item">
+                <h3>Water Filtration</h3>
+                <div class="spec">6,000L/Day</div>
+                <p>Our PuitTech filtration system can purify 6000 liters of water daily, ensuring a consistent supply for our customers.</p>
+            </div>
+            <div class="capacity-item">
+                <h3>Ice Production</h3>
+                <div class="spec">120kg/Day</div>
+                <p>With two ice-making machines, we produce 80kg and 40kg daily respectively, totaling 120kg of high-quality ice.</p>
+            </div>
+            <div class="capacity-item">
+                <h3>Storage Capacity</h3>
+                <div class="spec">5 Freezers</div>
+                <p>We maintain 5 display freezers for proper storage and attractive presentation of our products.</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="distribution">
+        <h2 class="section-title">Our Distribution Network</h2>
+        <div class="distribution-section">
+            <div class="distribution-map">
+                Distribution Map<br>Northern Cape Region
+            </div>
+            <div class="distribution-info">
+                <h3>Serving Communities Across the Region</h3>
+                <p>We proudly serve a broad client base spanning from Mothibistad, Magojaneng Mapoteng, Seven Miles, and extending to Batharos.</p>
+                <p>Our growing reputation extends even further through word-of-mouth recommendations from our satisfied customers.</p>
+                <p>What sets us apart from our competitors is our unique offering, a distinct quality that continues to draw attention and loyalty from our customers.</p>
+                <a href="customers.html" class="cta-button">View Our Customers</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits">
+        <h2 class="section-title">Why Choose Maweza</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">⭐</div>
+                <h3>Quality Assurance</h3>
+                <p>We maintain the highest standards in water purification and ice production, ensuring safe, clean products every time.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🤝</div>
+                <h3>Personalized Service</h3>
+                <p>We emphasize customer satisfaction and personalized attention, building strong relationships with our clients.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">⚡</div>
+                <h3>Reliable Supply</h3>
+                <p>With our efficient production capacity, we ensure consistent availability of our products to meet customer demand.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🌱</div>
+                <h3>Community Focus</h3>
+                <p>As a local business, we are committed to serving our community and contributing to its growth and well-being.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="contact-section" id="contact">
+        <h2 class="section-title" style="color: white;">Ready to Partner With Us?</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <h3>Email</h3>
+                <p>kelebogilemerriam632@gmail.com</p>
+            </div>
+            <div class="contact-item">
+                <h3>Phone</h3>
+                <p>071 523 8786<br>063 187 0021</p>
+            </div>
+            <div class="contact-item">
+                <h3>Location</h3>
+                <p>Kuruman, Northern Cape<br>South Africa</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="contact.html" class="cta-button">Contact Us Today</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Maweza Business Enterprise. All rights reserved. Pure Water, Quality Ice.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .capacity-item, .benefit-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
